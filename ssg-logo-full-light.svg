@@ -1,0 +1,12 @@
+<svg width="520" height="64" viewBox="0 0 520 64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="64" fill="#FDFAF6"/>
+  <g transform="translate(10,6)">
+    <line x1="0" y1="18" x2="36" y2="18" stroke="#1B2F4A" stroke-width="1.1"/>
+    <circle cx="18" cy="10" r="6" fill="none" stroke="#C9A96E" stroke-width="1.4"/>
+    <path d="M0,25 C5,21 10,29 16,25 C22,21 27,29 32,25 C34,23 35,24 36,25" fill="none" stroke="#4A7FA5" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M0,32 C5,28 10,36 16,32 C22,28 27,36 32,32 C34,30 35,31 36,32" fill="none" stroke="#A8C8DF" stroke-width="0.9" stroke-linecap="round"/>
+  </g>
+  <line x1="62" y1="8" x2="62" y2="56" stroke="#E0D5C5" stroke-width="0.7"/>
+  <text x="78" y="30" font-family="Georgia,serif" font-size="20" font-weight="400" letter-spacing="0.22em" fill="#1B2F4A">SHORELINE STRATEGY GROUP</text>
+  <text x="79" y="47" font-family="Georgia,serif" font-size="8.5" font-weight="400" letter-spacing="0.45em" fill="#C9A96E">COMMUNITY BUSINESS CONSULTING</text>
+</svg>
