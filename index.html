@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoreline Strategy Group</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy: #1B2F4A; --deep-blue: #2C4B6E; --ocean: #4A7FA5; --sky: #A8C8DF; --sand: #E8D9C0; --cream: #F5EFE6; --white: #FDFAF6; --gold: #C9A96E; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--navy); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: rgba(253,250,246,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,47,74,0.08); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: var(--deep-blue); opacity: 0.65; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; overflow: hidden; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 6rem; background: var(--white); position: relative; z-index: 2; }
+    .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8rem; animation: fadeUp 0.7s ease both; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 4vw, 4.4rem); font-weight: 300; line-height: 1.1; color: var(--navy); margin-bottom: 1.4rem; animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-title em { font-style: italic; color: var(--ocean); }
+    .hero-tagline { font-size: 0.95rem; line-height: 1.75; color: var(--deep-blue); opacity: 0.72; max-width: 380px; margin-bottom: 2.8rem; animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 0.7rem; background: var(--navy); color: var(--cream); text-decoration: none; padding: 0.9rem 2rem; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; transition: background 0.25s, gap 0.25s; animation: fadeUp 0.7s 0.3s ease both; width: fit-content; }
+    .hero-cta:hover { background: var(--deep-blue); gap: 1.1rem; }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(74,127,165,0.35) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(168,200,223,0.4) 0%, transparent 55%), linear-gradient(160deg, var(--sky) 0%, var(--deep-blue) 60%, var(--navy) 100%); animation: shimmer 8s ease-in-out infinite alternate; }
+    @keyframes shimmer { from { filter: brightness(1); } to { filter: brightness(1.07); } }
+    .hero-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 3; opacity: 0.12; pointer-events: none; }
+    .wave-container { position: absolute; bottom: 0; left: 0; right: 0; height: 180px; z-index: 2; }
+    .wave { position: absolute; bottom: 0; left: -10%; width: 120%; }
+    .wave1 { animation: waveMove 9s linear infinite; opacity: 0.45; }
+    .wave2 { animation: waveMove 12s linear infinite; opacity: 0.28; animation-delay: -3s; }
+    .wave3 { animation: waveMove 7s linear infinite; opacity: 0.18; animation-delay: -6s; }
+    @keyframes waveMove { 0% { transform: translateX(0); } 50% { transform: translateX(4%); } 100% { transform: translateX(0); } }
+    .section-label { font-size: 0.67rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 2.9rem); font-weight: 300; line-height: 1.2; color: var(--navy); margin-bottom: 1.4rem; }
+    .intro { background: var(--cream); padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: center; }
+    .intro-box { background: var(--navy); padding: 3rem; color: var(--cream); position: relative; }
+    .intro-box::after { content: ''; position: absolute; bottom: -12px; right: -12px; width: 100%; height: 100%; border: 1.5px solid var(--gold); z-index: -1; }
+    .intro-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 300; font-style: italic; line-height: 1.55; color: var(--sand); margin-bottom: 1.4rem; }
+    .intro-attr { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .intro-body p { font-size: 0.93rem; line-height: 1.9; color: var(--deep-blue); opacity: 0.85; margin-bottom: 1.1rem; }
+    .services { background: var(--white); padding: 7rem 4rem; }
+    .services-header { text-align: center; margin-bottom: 4.5rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: rgba(27,47,74,0.07); }
+    .service-card { background: var(--white); padding: 3rem 2.5rem; position: relative; overflow: hidden; transition: background 0.3s; }
+    .service-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--ocean); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+    .service-card:hover { background: var(--cream); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon { font-size: 2rem; margin-bottom: 1.4rem; display: block; }
+    .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: var(--navy); margin-bottom: 0.7rem; }
+    .service-desc { font-size: 0.87rem; line-height: 1.8; color: var(--deep-blue); opacity: 0.72; }
+    .pricing { background: var(--navy); padding: 7rem 4rem; }
+    .pricing-header { text-align: center; margin-bottom: 4.5rem; }
+    .pricing-header .section-label { color: var(--gold); }
+    .pricing-header .section-title { color: var(--cream); }
+    .pricing-header p { font-size: 0.93rem; color: var(--sky); opacity: 0.8; max-width: 560px; margin: 0 auto; line-height: 1.8; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin: 0 auto; background: rgba(168,200,223,0.1); }
+    .pricing-card { padding: 3rem 2.5rem; }
+    .pricing-card.basic { background: var(--deep-blue); }
+    .pricing-card.pro { background: var(--ocean); }
+    .pricing-tier { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .pricing-price { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 0.3rem; }
+    .pricing-period { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--sky); opacity: 0.7; margin-bottom: 1.6rem; }
+    .pricing-hook { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--sand); margin-bottom: 1.6rem; line-height: 1.55; border-left: 2px solid var(--gold); padding-left: 1rem; }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .pricing-features li { font-size: 0.86rem; color: var(--sky); opacity: 0.85; padding-left: 1.2rem; position: relative; line-height: 1.6; }
+    .pricing-features li::before { content: '--'; position: absolute; left: 0; color: var(--gold); }
+    .story { background: var(--cream); padding: 7rem 4rem; position: relative; overflow: hidden; }
+    .story-inner { max-width: 1100px; margin: 0 auto; }
+    .story-header { text-align: center; margin-bottom: 4rem; }
+    .story-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: start; }
+    .story-text p { font-size: 0.92rem; line-height: 1.95; color: var(--deep-blue); opacity: 0.85; margin-bottom: 1.2rem; }
+    .story-values { display: flex; flex-direction: column; gap: 1.8rem; }
+    .value-item { display: flex; gap: 1.1rem; align-items: flex-start; padding-bottom: 1.8rem; border-bottom: 1px solid rgba(27,47,74,0.1); }
+    .value-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .value-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 500; color: var(--navy); margin-bottom: 0.3rem; }
+    .value-desc { font-size: 0.82rem; line-height: 1.75; color: var(--deep-blue); opacity: 0.7; }
+    .team { background: var(--white); padding: 7rem 4rem; }
+    .team-header { text-align: center; margin-bottom: 4.5rem; }
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 900px; margin: 0 auto; }
+    .team-card { background: var(--cream); border: 1px solid rgba(27,47,74,0.1); padding: 2.5rem; transition: border-color 0.3s, box-shadow 0.3s; }
+    .team-card:hover { border-color: var(--gold); box-shadow: 0 8px 32px rgba(27,47,74,0.08); }
+    .team-initial { width: 56px; height: 56px; background: var(--navy); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--sky); margin-bottom: 1.4rem; }
+    .team-name { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; color: var(--navy); margin-bottom: 0.25rem; }
+    .team-school { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; }
+    .team-bio { font-size: 0.87rem; line-height: 1.8; color: var(--deep-blue); opacity: 0.78; }
+    .contact { background: var(--cream); padding: 7rem 4rem; }
+    .contact-inner { max-width: 660px; margin: 0 auto; text-align: center; }
+    .contact-sub { font-size: 0.93rem; line-height: 1.8; color: var(--deep-blue); opacity: 0.72; margin-bottom: 1.6rem; }
+    .contact-badge { display: inline-block; background: rgba(74,127,165,0.1); border: 1px solid rgba(74,127,165,0.22); padding: 0.55rem 1.3rem; font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ocean); margin-bottom: 2.8rem; }
+    .contact-form { text-align: left; display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 2.8rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .form-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); opacity: 0.55; }
+    .form-input { background: var(--white); border: 1.5px solid rgba(27,47,74,0.12); padding: 0.82rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--navy); outline: none; transition: border-color 0.2s; width: 100%; }
+    .form-input:focus { border-color: var(--ocean); }
+    .form-input::placeholder { opacity: 0.38; }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .check-label { display: flex; align-items: center; gap: 0.55rem; font-size: 0.86rem; color: var(--deep-blue); cursor: pointer; }
+    .check-label input[type="checkbox"] { accent-color: var(--ocean); width: 14px; height: 14px; cursor: pointer; }
+    .form-btn { background: var(--navy); color: var(--cream); border: none; padding: 1rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; align-self: flex-start; }
+    .form-btn:hover { background: var(--ocean); }
+    .form-success { display: none; font-size: 0.83rem; color: var(--ocean); padding: 0.9rem 1.2rem; border: 1px solid rgba(74,127,165,0.28); background: rgba(74,127,165,0.06); text-align: center; }
+    .contact-divider { border: none; border-top: 1px solid rgba(27,47,74,0.08); margin-bottom: 2rem; }
+    .contact-direct-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--deep-blue); opacity: 0.45; margin-bottom: 0.9rem; }
+    .contact-emails { display: flex; justify-content: center; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+    .contact-email { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--navy); text-decoration: none; border-bottom: 1.5px solid var(--gold); padding-bottom: 0.12rem; transition: color 0.2s; }
+    .contact-email:hover { color: var(--ocean); }
+    .email-sep { color: var(--deep-blue); opacity: 0.28; font-size: 1.2rem; }
+    footer { background: var(--navy); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 0.92rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream); opacity: 0.55; }
+    .footer-copy { font-size: 0.7rem; color: var(--sky); opacity: 0.38; letter-spacing: 0.08em; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 860px) {
+      nav { padding: 1.1rem 1.5rem; } .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 6rem 1.5rem 3rem; order: 1; } .hero-right { height: 300px; order: 2; }
+      .intro { grid-template-columns: 1fr; padding: 4.5rem 1.5rem; gap: 2.5rem; } .intro-box::after { display: none; }
+      .services { padding: 4.5rem 1.5rem; } .services-grid { grid-template-columns: 1fr; }
+      .pricing { padding: 4.5rem 1.5rem; } .pricing-grid { grid-template-columns: 1fr; }
+      .story { padding: 4.5rem 1.5rem; } .story-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .team { padding: 4.5rem 1.5rem; } .team-grid { grid-template-columns: 1fr; }
+      .contact { padding: 4.5rem 1.5rem; } .form-row { grid-template-columns: 1fr; } .form-checks { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <img src="ssg-logo-full-light.svg" alt="Shoreline Strategy Group" style="height:30px;display:block;" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="#intro">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Dagsboro, Delaware &nbsp;·&nbsp; Community Business Consulting</p>
+      <h1 class="hero-title">Where Small Business Meets <em>State-of-the-Art</em> Strategy</h1>
+      <p class="hero-tagline">Shoreline Strategy Group brings fresh, rigorous thinking to local businesses. Free initial engagement. Real analysis. Real deliverables.</p>
+      <a href="#contact" class="hero-cta">Work With Us &rarr;</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-watermark">
+        <svg width="280" height="200" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(102,30)">
+            <line x1="0" y1="36" x2="76" y2="36" stroke="#FDFAF6" stroke-width="2.2"/>
+            <circle cx="38" cy="20" r="14" fill="none" stroke="#FDFAF6" stroke-width="2.8"/>
+            <path d="M0,52 C10,42 20,62 30,52 C40,42 50,62 60,52 C66,47 70,49 76,52" fill="none" stroke="#FDFAF6" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M0,66 C10,56 20,76 30,66 C40,56 50,76 60,66 C66,61 70,63 76,66" fill="none" stroke="#FDFAF6" stroke-width="1.8" stroke-linecap="round"/>
+          </g>
+          <text x="140" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="8" fill="#FDFAF6">SHORELINE</text>
+          <text x="140" y="170" text-anchor="middle" font-family="Georgia,serif" font-size="10" letter-spacing="6" fill="#FDFAF6">STRATEGY GROUP</text>
+        </svg>
+      </div>
+      <div class="wave-container">
+        <svg class="wave wave1" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(232,217,192,0.28)" d="M0,60 C360,100 1080,20 1440,60 L1440,100 L0,100 Z"/></svg>
+        <svg class="wave wave2" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(253,250,246,0.14)" d="M0,40 C480,90 960,10 1440,50 L1440,100 L0,100 Z"/></svg>
+        <svg class="wave wave3" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(168,200,223,0.18)" d="M0,70 C300,30 1140,90 1440,40 L1440,100 L0,100 Z"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro" id="intro">
+    <div class="reveal">
+      <div class="intro-box">
+        <p class="intro-quote">"Every local business deserves the kind of strategic thinking that only big companies usually get."</p>
+        <span class="intro-attr">&mdash; Shoreline Strategy Group</span>
+      </div>
+    </div>
+    <div class="intro-body reveal">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">Community-Rooted. Analytically Driven.</h2>
+      <p>Shoreline Strategy Group is a student-founded consulting initiative serving small businesses in and around Dagsboro, Delaware. We bring academic rigor from the University of Pennsylvania and New York University to the real challenges facing local business owners.</p>
+      <p>Our initial engagements are entirely free &mdash; because quality strategic advice shouldn&rsquo;t be reserved for large corporations. Ongoing advisory retainers are available for businesses seeking continued support.</p>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="services-header reveal">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">&#128202;</span>
+        <h3 class="service-title">Business Strategy</h3>
+        <p class="service-desc">Competitive positioning, growth planning, and operational analysis. We study your business and deliver a clear, actionable written strategy report tailored to your goals.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">&#128241;</span>
+        <h3 class="service-title">Marketing &amp; Social Media</h3>
+        <p class="service-desc">Content strategy, platform recommendations, and marketing plans designed to help local businesses reach more customers in a digital-first world.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">&#128176;</span>
+        <h3 class="service-title">Financial Analysis</h3>
+        <p class="service-desc">Budgeting, basic P&amp;L review, and market sizing to help you understand your numbers and make smarter financial decisions with confidence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="pricing-header reveal">
+      <p class="section-label">Ongoing Support</p>
+      <h2 class="section-title" style="color:var(--cream);">Advisory Retainers</h2>
+      <p>After your free initial engagement, keep the momentum going. Our retainer tiers give you continued access to SSG&rsquo;s analysis, strategy, and support &mdash; at a fraction of what traditional consulting costs.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="pricing-card basic">
+        <p class="pricing-tier">Basic</p>
+        <p class="pricing-price">$175</p>
+        <p class="pricing-period">per month</p>
+        <p class="pricing-hook">"Less than $6 a day &mdash; you spend that on coffee. Why not invest it in your business?"</p>
+        <ul class="pricing-features">
+          <li>Monthly written update memo</li>
+          <li>Minor updates to strategy documents and marketing plans</li>
+          <li>Delivered digitally within the first week of each month</li>
+        </ul>
+      </div>
+      <div class="pricing-card pro">
+        <p class="pricing-tier">Pro</p>
+        <p class="pricing-price">$300</p>
+        <p class="pricing-period">per month</p>
+        <p class="pricing-hook">"Junior consultants bill $75&ndash;150 per hour. We charge $10 a day."</p>
+        <ul class="pricing-features">
+          <li>In-depth monthly strategy memo</li>
+          <li>At least one 30&ndash;60 min scheduled call per month</li>
+          <li>Ongoing email support with 48-hour response commitment</li>
+          <li>Strategy maintenance and document updates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="story-inner">
+      <div class="story-header reveal">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Two Students. One Community.</h2>
+      </div>
+      <div class="story-grid">
+        <div class="story-text reveal">
+          <p>Shoreline Strategy Group was founded in the summer of 2026 by Tyrus Roney and Alex Triantafillou &mdash; two college freshmen who spent their summers working in Dagsboro, Delaware and kept noticing the same thing: the small businesses around them were run by hardworking, dedicated people who simply didn&rsquo;t have access to the kind of strategic support that larger companies take for granted.</p>
+          <p>Between the two of us, we brought complementary skills &mdash; business strategy and financial analysis &mdash; and a genuine connection to this community. We decided to put both to use.</p>
+          <p>We&rsquo;re not a traditional consulting firm. We don&rsquo;t have a corner office and we&rsquo;re not pretending to have decades of experience. What we do have is rigorous academic training, fresh outside perspective, real analytical tools, and the time and motivation to apply them fully to your business.</p>
+          <p>Every engagement gets our full attention &mdash; from a structured discovery conversation to a written deliverable you can actually act on. We keep our client list small on purpose, because quality matters more to us than volume.</p>
+        </div>
+        <div class="story-values reveal">
+          <div class="value-item">
+            <span class="value-icon">&#9875;</span>
+            <div>
+              <h4 class="value-title">Community First</h4>
+              <p class="value-desc">We live and work here. This isn&rsquo;t charity &mdash; it&rsquo;s investment in a place we actually care about.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">&#128208;</span>
+            <div>
+              <h4 class="value-title">Rigorous by Default</h4>
+              <p class="value-desc">We bring the same analytical standards to a local business that we&rsquo;d apply to a Fortune 500 case study.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">&#129309;</span>
+            <div>
+              <h4 class="value-title">No Strings Attached</h4>
+              <p class="value-desc">Our initial engagement is always free. Ongoing support is available for those who want it. No pressure either way.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">&#128196;</span>
+            <div>
+              <h4 class="value-title">Real Deliverables</h4>
+              <p class="value-desc">You won&rsquo;t get vague advice. You&rsquo;ll get a written report, a plan, or an analysis you can take away and use.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team" id="team">
+    <div class="team-header reveal">
+      <p class="section-label">The Team</p>
+      <h2 class="section-title">Founded by Two.</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-initial">T</div>
+        <h3 class="team-name">Tyrus Roney</h3>
+        <p class="team-school">University of Pennsylvania &middot; Economics</p>
+        <p class="team-bio">Focused on business development, strategic planning, and client relationships. Tyrus brings qualitative analytical thinking and a long-term entrepreneurial orientation to every engagement.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-initial">A</div>
+        <h3 class="team-name">Alex Triantafillou</h3>
+        <p class="team-school">New York University &middot; Finance</p>
+        <p class="team-bio">Quantitative and technically rigorous, Alex leads financial modeling, market sizing, and data-driven analysis &mdash; bringing an investment banking mindset to local business challenges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-inner reveal">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Let&rsquo;s Talk About Your Business</h2>
+      <p class="contact-sub">We&rsquo;re currently accepting a limited number of businesses for our Summer 2026 season. Fill out the form below &mdash; no commitment, no cost.</p>
+      <div class="contact-badge">&#10022; Free initial engagement &nbsp;&middot;&nbsp; Optional retainers available &#10022;</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="f-name" placeholder="Jane Smith" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Name</label>
+            <input type="text" class="form-input" id="f-biz" placeholder="Smith's Surf Shop" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="f-email" placeholder="jane@yourbusiness.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">What can we help with?</label>
+          <div class="form-checks">
+            <label class="check-label"><input type="checkbox" value="strategy" /> Business Strategy</label>
+            <label class="check-label"><input type="checkbox" value="marketing" /> Marketing &amp; Social Media</label>
+            <label class="check-label"><input type="checkbox" value="finance" /> Financial Analysis</label>
+            <label class="check-label"><input type="checkbox" value="unsure" /> Not sure yet</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell us about your business</label>
+          <textarea class="form-input form-textarea" id="f-message" placeholder="What do you do, how long have you been operating, and what challenges are you facing?"></textarea>
+        </div>
+        <button class="form-btn" onclick="handleSubmit()"><span id="btn-text">Send Inquiry &rarr;</span></button>
+        <div class="form-success" id="form-success">&#10022; Thank you &mdash; we&rsquo;ll be in touch within 48 hours.</div>
+      </div>
+      <hr class="contact-divider" />
+      <p class="contact-direct-label">Or reach us directly</p>
+      <div class="contact-emails">
+        <a href="mailto:tyrus@shorelinestrategygroup.com" class="contact-email">tyrus@shorelinestrategygroup.com</a>
+        <span class="email-sep">&middot;</span>
+        <a href="mailto:alex@shorelinestrategygroup.com" class="contact-email">alex@shorelinestrategygroup.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Shoreline Strategy Group</div>
+    <div class="footer-copy">&copy; 2026 &middot; Dagsboro, Delaware</div>
+  </footer>
+
+  <script>
+    var reveals = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e, i) {
+        if (e.isIntersecting) setTimeout(function() { e.target.classList.add('visible'); }, i * 80);
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(function(el) { io.observe(el); });
+
+    function handleSubmit() {
+      var name = document.getElementById('f-name').value.trim();
+      var biz = document.getElementById('f-biz').value.trim();
+      var email = document.getElementById('f-email').value.trim();
+      var message = document.getElementById('f-message').value.trim();
+      var boxes = document.querySelectorAll('.form-checks input:checked');
+      var checked = [];
+      for (var i = 0; i < boxes.length; i++) { checked.push(boxes[i].value); }
+      var services = checked.length ? checked.join(', ') : 'Not specified';
+      if (!name || !email) { alert('Please fill in your name and email.'); return; }
+      var subject = encodeURIComponent('SSG Inquiry - ' + (biz || name));
+      var body = encodeURIComponent('Name: ' + name + '\nBusiness: ' + (biz || 'N/A') + '\nEmail: ' + email + '\nServices: ' + services + '\n\n' + message);
+      window.location.href = 'mailto:tyrus@shorelinestrategygroup.com,alex@shorelinestrategygroup.com?subject=' + subject + '&body=' + body;
+      document.getElementById('btn-text').textContent = 'Inquiry Sent';
+      document.getElementById('form-success').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
